@@ -1,0 +1,3 @@
+Log(description=User successfully create : selim2@hotmail.com, logType=CREATE)
+Log(description=User successfully create : selim2@hotmail.com, logType=CREATE)
+Log(description=User successfully create : selim3@hotmail.com, logType=CREATE)
