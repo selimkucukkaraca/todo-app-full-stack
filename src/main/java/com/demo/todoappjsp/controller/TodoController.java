@@ -1,4 +1,4 @@
-package com.demo.todoappjsp.dto.controller;
+package com.demo.todoappjsp.controller;
 
 import com.demo.todoappjsp.dto.TodoDto;
 import com.demo.todoappjsp.dto.request.TodoCreateRequest;
