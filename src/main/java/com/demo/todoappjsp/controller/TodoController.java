@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -33,6 +34,12 @@ public class TodoController {
     public ResponseEntity<?> delete(@RequestParam String publicId){
         todoService.deleteByPublicId(publicId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity <List<TodoDto>> getAll(@RequestParam int size, @RequestParam int page){
+        return ResponseEntity
+                .ok(todoService.getAll(size,page));
     }
 
     @PutMapping("/update")

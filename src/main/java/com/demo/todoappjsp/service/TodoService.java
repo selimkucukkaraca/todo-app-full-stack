@@ -11,11 +11,15 @@ import com.demo.todoappjsp.model.Todo;
 import com.demo.todoappjsp.model.User;
 import com.demo.todoappjsp.repository.TodoRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -72,6 +76,15 @@ public class TodoService {
         logService.save(new Log("Todo successfully update  : " + publicId, LogType.UPDATE));
 
         return todoConverter.convertTodoToTodoDto(fromDbTodo);
+    }
+
+    public List<TodoDto> getAll(int page, int size){
+        Pageable pageable = PageRequest.of(page,size);
+
+        return todoRepository.findAll(pageable)
+                .stream()
+                .map(todoConverter::convertTodoToTodoDto)
+                .toList();
     }
 
     protected Todo getTodoByPublicId(String publicId) {

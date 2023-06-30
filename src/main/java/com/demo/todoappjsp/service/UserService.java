@@ -3,6 +3,7 @@ package com.demo.todoappjsp.service;
 import com.demo.todoappjsp.dto.UserDto;
 import com.demo.todoappjsp.dto.converter.UserConverter;
 import com.demo.todoappjsp.dto.request.UserCreateRequest;
+import com.demo.todoappjsp.dto.request.UserLoginRequest;
 import com.demo.todoappjsp.dto.request.UserUpdateRequest;
 import com.demo.todoappjsp.exception.NotFoundException;
 import com.demo.todoappjsp.exception.generic.GenericExistException;
@@ -52,8 +53,15 @@ public class UserService {
 
     }
 
+    public UserDto login(UserLoginRequest request) {
+        var fromDbUser = getUserByMail(request.getMail());
+        if (fromDbUser.getPassword().equals(request.getPassword())) {
+            userRepository.save(fromDbUser);
 
-
+            return userConverter.convertUserToUserDto(fromDbUser);
+        }
+        throw new RuntimeException();
+    }
 
     public UserDto updateUser(String mail, Optional<UserUpdateRequest> request) {
         UserUpdateRequest userUpdateRequest = request.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, ""));

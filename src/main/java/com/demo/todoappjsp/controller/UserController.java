@@ -2,6 +2,7 @@ package com.demo.todoappjsp.controller;
 
 import com.demo.todoappjsp.dto.UserDto;
 import com.demo.todoappjsp.dto.request.UserCreateRequest;
+import com.demo.todoappjsp.dto.request.UserLoginRequest;
 import com.demo.todoappjsp.dto.request.UserUpdateRequest;
 import com.demo.todoappjsp.service.UserService;
 import jakarta.validation.Valid;
@@ -33,6 +34,12 @@ public class UserController {
     public ResponseEntity<?> delete(@RequestParam String mail){
         userService.delete(mail);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<UserDto> login(@RequestBody UserLoginRequest request){
+        return ResponseEntity
+                .ok(userService.login(request));
     }
 
     @PutMapping("/update")
