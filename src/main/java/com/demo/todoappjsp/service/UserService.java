@@ -56,7 +56,6 @@ public class UserService {
     public UserDto login(UserLoginRequest request) {
         var fromDbUser = getUserByMail(request.getMail());
         if (fromDbUser.getPassword().equals(request.getPassword())) {
-            userRepository.save(fromDbUser);
 
             return userConverter.convertUserToUserDto(fromDbUser);
         }
